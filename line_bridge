@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบลงทะเบียนหอพัก</title>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body style="text-align: center; font-family: sans-serif; padding-top: 50px;">
+    <p>กำลังเตรียมข้อมูลลงทะเบียน...</p>
+    
+    <script>
+        async function main() {
+            // 1. ใส่ LIFF ID ที่คุณสร้างใน LINE Developers Console
+            await liff.init({ liffId: "ใส่_LIFF_ID_ของคุณที่นี่" }); 
+
+            if (!liff.isLoggedIn()) {
+                liff.login();
+            } else {
+                // 2. ดึง Profile ของลูกหอ
+                const profile = await liff.getProfile();
+                const userId = profile.userId;
+                
+                // 3. นำ userID ไปใส่แทนที่ GET_ID ในลิงก์ Google Form ของคุณ
+                const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScLWMaDECDi4Mu8UL15svgGsTWyeB8VB5lLdlExg5pcSJiLhw/viewform?usp=pp_url&entry.279697382=" + userId;
+                
+                // 4. ส่งลูกหอไปยังหน้าฟอร์มทันที
+                window.location.href = googleFormUrl;
+            }
+        }
+        main();
+    </script>
+</body>
+</html>
