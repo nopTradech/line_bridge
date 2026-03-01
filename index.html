@@ -11,21 +11,25 @@
     
     <script>
         async function main() {
-            // 1. ใส่ LIFF ID ที่คุณสร้างใน LINE Developers Console
-            await liff.init({ liffId: "2009276994-Eu0ZAtYC" }); 
+            try {
+                // นำ ID ที่คุณให้มาใส่ตรงนี้
+                await liff.init({ liffId: "2009276994-Eu0ZAtYC" }); 
 
-            if (!liff.isLoggedIn()) {
-                liff.login();
-            } else {
-                // 2. ดึง Profile ของลูกหอ
-                const profile = await liff.getProfile();
-                const userId = profile.userId;
-                
-                // 3. นำ userID ไปใส่แทนที่ GET_ID ในลิงก์ Google Form ของคุณ
-                const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScLWMaDECDi4Mu8UL15svgGsTWyeB8VB5lLdlExg5pcSJiLhw/viewform?usp=pp_url&entry.279697382=" + userId;
-                
-                // 4. ส่งลูกหอไปยังหน้าฟอร์มทันที
-                window.location.href = googleFormUrl;
+                if (!liff.isLoggedIn()) {
+                    liff.login(); // ถ้าเปิดในเบราว์เซอร์ทั่วไป จะเด้งหน้า Login LINE
+                } else {
+                    const profile = await liff.getProfile();
+                    const userId = profile.userId;
+            
+                    // ลิงก์ Google Form ของคุณ
+                    const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScLWMaDECDi4Mu8UL15svgGsTWyeB8VB5lLdlExg5pcSJiLhw/viewform?usp=pp_url&entry.279697382=" + userId;
+            
+                    // สั่งให้เปลี่ยนหน้า (Redirect)
+                    window.location.replace(googleFormUrl);
+                }
+            } catch (error) {
+                console.error("LIFF Error:", error);
+                alert("เกิดข้อผิดพลาด: " + error.message);
             }
         }
         main();
