@@ -12,7 +12,7 @@
     <script>
         async function main() {
             // 1. ใส่ LIFF ID ที่คุณสร้างใน LINE Developers Console
-            await liff.init({ liffId: "ใส่_LIFF_ID_ของคุณที่นี่" }); 
+            await liff.init({ liffId: "2009276994-Eu0ZAtYC" }); 
 
             if (!liff.isLoggedIn()) {
                 liff.login();
